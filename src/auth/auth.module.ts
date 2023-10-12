@@ -7,10 +7,11 @@ import { PrismaModule } from './../prisma/prisma.module';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
 import { HashModule } from '../hashing/hash.module';
+import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, LocalStrategy],
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
