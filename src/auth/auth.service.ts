@@ -12,7 +12,7 @@ export class AuthService {
   ) {}
 
   async register(createAuthDto: CreateAuthDto) {
-    const { email } = createAuthDto;
+    const { email, first_name, last_name } = createAuthDto;
 
     const password = await this.hashService.hashPassword(
       createAuthDto.password,
@@ -22,11 +22,15 @@ export class AuthService {
       data: {
         email,
         password,
+        first_name,
+        last_name,
       },
     });
     console.log(email, password);
     return {
       email,
+      first_name,
+      last_name,
     };
   }
 

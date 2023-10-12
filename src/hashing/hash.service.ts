@@ -7,4 +7,7 @@ export class HashService {
     const salt = bcrypt.genSaltSync(10);
     return bcrypt.hash(password, salt);
   }
+  comparePassword(password: string, hash: string) {
+    return bcrypt.compare(password, hash);
+  }
 }
