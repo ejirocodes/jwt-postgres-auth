@@ -11,7 +11,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('JWT Auth with Prisma, Postgres, and NestJS')
+    .setTitle('JWT Auth with Passport, Prisma, Postgres, and NestJS')
     .setDescription(
       'This is an attempt to understand how to use JWT Auth with Prisma, Postgres, and NestJS',
     )
