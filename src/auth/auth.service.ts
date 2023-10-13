@@ -28,6 +28,7 @@ export class AuthService {
         last_name,
       },
     });
+
     return {
       message: 'User created successfully',
       user,
