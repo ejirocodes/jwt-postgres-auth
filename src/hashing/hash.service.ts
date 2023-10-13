@@ -4,9 +4,10 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class HashService {
   hashPassword(password: string): Promise<string> {
-    const salt = bcrypt.genSaltSync(10);
-    return bcrypt.hash(password, salt);
+    const SALT = 10;
+    return bcrypt.hash(password, SALT);
   }
+
   comparePassword(password: string, hash: string) {
     return bcrypt.compare(password, hash);
   }

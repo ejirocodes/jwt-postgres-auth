@@ -19,15 +19,21 @@ import { LocalStrategy } from './strategies/local.strategy';
     PrismaModule,
     PassportModule,
     HashModule,
-    JwtModule.registerAsync({
-      inject: [ConfigService],
-      useFactory: async (config: ConfigService) => ({
-        secret: config.get('JWT_SECRET'),
-        signOptions: {
-          expiresIn: '30d',
-        },
-      }),
+    JwtModule.register({
+      secret: 'a-weird-unsecret-secret£$%&/()=?',
+      signOptions: {
+        expiresIn: '30d',
+      },
     }),
+    // JwtModule.registerAsync({
+    //   inject: [ConfigService],
+    //   useFactory: async (config: ConfigService) => ({
+    //     secret: config.get('JWT_SECRET'),
+    //     signOptions: {
+    //       expiresIn: '30d',
+    //     },
+    //   }),
+    // }),
   ],
 })
 export class AuthModule {}

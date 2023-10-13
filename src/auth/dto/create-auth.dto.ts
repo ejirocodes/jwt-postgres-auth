@@ -2,12 +2,16 @@ import { Type } from 'class-transformer';
 import {
   IsEmail,
   IsNotEmpty,
+  IsOptional,
   IsString,
   MaxLength,
   MinLength,
 } from 'class-validator';
 
 export class CreateAuthDto {
+  @IsOptional()
+  id: string;
+
   @MaxLength(30)
   @IsString()
   @IsNotEmpty()

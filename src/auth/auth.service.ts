@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 import { PrismaService } from './../prisma/prisma.service';
 
 import { HashService } from './../hashing/hash.service';
 import { JwtService } from '@nestjs/jwt';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -20,7 +20,7 @@ export class AuthService {
       createAuthDto.password,
     );
 
-    await this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data: {
         email,
         password,
@@ -29,13 +29,27 @@ export class AuthService {
       },
     });
     return {
+      message: 'User created successfully',
+      user,
+    };
+  }
+
+  login(createAuthDto: CreateAuthDto) {
+    const { email, first_name, last_name, id } = createAuthDto;
+
+    const user = {
+      id,
       email,
       first_name,
       last_name,
     };
-  }
+    const access_token = this.jwtService.sign(user);
 
-  login(createAuthDto: CreateAuthDto) {}
+    return {
+      ...user,
+      access_token,
+    };
+  }
 
   async validateUser(email: string, password: string) {
     const user = await this.prisma.user.findUnique({
@@ -43,11 +57,12 @@ export class AuthService {
         email,
       },
     });
+
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
-    const isValidUser = this.hashService.comparePassword(
+    const isValidUser = await this.hashService.comparePassword(
       password,
       user.password,
     );
@@ -55,19 +70,12 @@ export class AuthService {
     if (isValidUser) {
       return user;
     }
+
     return null;
   }
 
   findAll() {
     return `This action returns all auth`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
   }
 
   remove(id: number) {
