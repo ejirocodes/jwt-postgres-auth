@@ -1,7 +1,7 @@
 # Authentication with JSON Web Token (JWT) and Passport
 
 ## Description
-This is a NestJS project that implements authentication with JSON Web Token (JWT) and Passport. It is based on the NestJS tutorial [Authentication with JSON Web Tokens (JWT) and Passport](https://docs.nestjs.com/techniques/authentication).
+This is a NestJS project that implements authentication system Passport, and issue JSON Web Token (JWT) for protected resources . It is based on the NestJS tutorial [Authentication with JSON Web Tokens (JWT) and Passport](https://docs.nestjs.com/techniques/authentication).
 
 ## Installation
 
